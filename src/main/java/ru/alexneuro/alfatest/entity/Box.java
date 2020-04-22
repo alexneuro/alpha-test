@@ -7,10 +7,8 @@ import javax.persistence.Id;
 @Entity
 public class Box {
     @Id
-//    @SequenceGenerator(name="jpaSeq", sequenceName = "box_id_seq", allocationSize = 1, initialValue = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jpaSeq")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "contained_in")
     private int parent;
 

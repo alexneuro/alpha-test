@@ -5,10 +5,14 @@ import javax.persistence.*;
 @Entity
 public class Item {
     @Id
-//    @SequenceGenerator(name="jpaSeq1", sequenceName = "item_id_seq", allocationSize = 1, initialValue = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jpaSeq1")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(length = 100)
+    private String color;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "contained_in", referencedColumnName = "id")
+    private Box parent;
 
     public int getId() {
         return id;
@@ -18,12 +22,13 @@ public class Item {
         this.id = id;
     }
 
-    @Column(length = 100)
-    private String color;
+    public String getColor() {
+        return color;
+    }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn(name = "contained_in", referencedColumnName = "id")
-    private Box parent;
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public Box getParent() {
         return parent;
@@ -31,14 +36,6 @@ public class Item {
 
     public void setParent(Box parent) {
         this.parent = parent;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
 
