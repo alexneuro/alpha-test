@@ -26,17 +26,7 @@ public class ItemService {
     }
 
     @Transactional
-    public Iterable<Item> findAll() {
-        return itemRepository.findAll();
-    }
-
-    @Transactional
-    public List<Item> getItems(Box box, String color) {
-        return itemRepository.findAllByParentAndColor(box, color);
-    }
-
     public List<Item> getItemsByBoxesAndColor(List<Box> boxes, String color) {
         return itemRepository.findAllByParentInAndAndColorEquals(boxes, color);
     }
-
 }

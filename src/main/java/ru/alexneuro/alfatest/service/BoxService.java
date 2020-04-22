@@ -9,7 +9,6 @@ import ru.alexneuro.alfatest.repository.BoxRepository;
 import java.util.List;
 
 @Service
-@Transactional
 public class BoxService {
     private final BoxRepository boxRepository;
 
@@ -24,14 +23,11 @@ public class BoxService {
     }
 
     @Transactional
-    public List<Box> getAllHead() {
-        return this.boxRepository.findAllByParentEquals(0);
-    }
-
     public List<Box> getChildBoxes(Box box) {
         return this.boxRepository.findAllByParentEquals(box.getId());
     }
 
+    @Transactional
     public void getAllChildBoxes(Box box, List<Box> list) {
         for (Box child : getChildBoxes(box)) {
             list.add(child);
@@ -39,12 +35,10 @@ public class BoxService {
         }
     }
 
+    @Transactional
     public Box getBoxById(int id) {
         return this.boxRepository.findById(id).get();
     }
 
-    public List<Integer> getChildIds(Box box) {
-        return boxRepository.childBoxIdList(box.getId());
-    }
 }
 

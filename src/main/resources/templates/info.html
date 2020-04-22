@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test app</title>
+</head>
+<body>
+<h1>Hello!</h1>
+<p>REST-сервис, который возвращает id предметов
+    заданного цвета(color) содержащиеся в ящике c заданным идентификатором (box)
+    с учётом того, что в ящике может быть ещё ящик с предметами требуемого цвета.</p>
+<p>Для этого нужно отправить POST-запрос с телом запроса в JSON вида:</p>
+<ul>
+    <li>POST /test HTTP/1.1</li>
+    <li>Host: localhost</li>
+    <li>Accept: application/json</li>
+    <li>Content-Type:application/json</li>
+    <li>Content-Length: 25</li>
+    <li>{"box":"1","color":"red"}</li>
+</ul>
+</body>
+</html>

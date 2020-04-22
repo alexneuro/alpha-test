@@ -38,7 +38,6 @@ public class Item {
         this.parent = parent;
     }
 
-
     public String toString() {
         if (parent == null)
             return String.format("%s {id=%s, color='%s'}", "Item", id, color);

@@ -5,10 +5,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import ru.alexneuro.alfatest.service.BoxService;
-import ru.alexneuro.alfatest.service.ItemService;
+import ru.alexneuro.alfatest.xml.XMLParser;
 
 import java.io.File;
 
@@ -16,25 +13,15 @@ import java.io.File;
 public class AlfaTestApplication implements ApplicationRunner {
 
     @Autowired
-    private BoxService boxService;
-    @Autowired
-    private ItemService itemService;
-    private static String fileName;
+    private XMLParser xmlParser;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(AlfaTestApplication.class, args);
-
-    }
-
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void testCreate() {
-        XMLParser xmlParser = new XMLParser(boxService, itemService);
-        xmlParser.parse(new File(fileName));
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        fileName = args.getSourceArgs()[0];
+    public void run(ApplicationArguments args) {
+        String fileName = args.getSourceArgs()[0];
+        xmlParser.parse(new File(fileName));
     }
 }
