@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class MyController {
+public class TestController {
     private ItemService itemService;
     private BoxService boxService;
 
     @Autowired
-    public MyController(ItemService itemService, BoxService boxService) {
+    public TestController(ItemService itemService, BoxService boxService) {
         this.itemService = itemService;
         this.boxService = boxService;
     }
