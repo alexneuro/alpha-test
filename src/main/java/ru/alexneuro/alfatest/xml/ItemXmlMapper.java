@@ -20,6 +20,8 @@ public class ItemXmlMapper implements XmlMapper {
 
     @Value("${xmlparser.not-unique-id-message}")
     private String MESSAGE_FOR_NOT_UNIQUE_ID;
+    @Value("${xmlparser.null-id-message}")
+    private String MESSAGE_FOR_NULL_ID;
 
     private ItemService itemService;
 
@@ -30,7 +32,14 @@ public class ItemXmlMapper implements XmlMapper {
 
     public Item create(Element element, Box parentBox) {
         Item item = new Item();
-        int id = Integer.parseInt(element.getAttribute("id"));
+        int id;
+        try {
+            id = Integer.parseInt(element.getAttribute("id"));
+        } catch (NumberFormatException e) {
+            LOGGER.warn(String.format(MESSAGE_FOR_NULL_ID, item));
+            return null;
+        }
+
         item.setId(id);
         item.setColor(element.getAttribute("color"));
         if (parentBox != null)
