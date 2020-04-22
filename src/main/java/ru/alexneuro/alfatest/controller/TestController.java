@@ -27,7 +27,7 @@ public class TestController {
     }
 
     @GetMapping("/test")
-    public String get() {
+    public String getInfo() {
         return "info";
     }
 
