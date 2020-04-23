@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Test app</title>
+</head>
+<body>
+<h1>Hello! Alpha-test</h1>
+<p>
+    На вход в виде параметра командной строки java-приложению передаётся имя XML-файла, в котором задано взаимное
+    положение предметов(Item) и ящиков(Box).
+</p>
+<ul>
+    <li>ящики могут быть пустыми или содержать предметы или другие ящики;</li>
+    <li>у каждого ящика и предмета есть id;</li>
+    <li>id какого-либо предмета и какого-либо ящика могут совпадать, но в совокупности предметов они уникальны (как и в
+        совокупности ящиков);
+    </li>
+    <li>вложенность ящиков может быть любой;</li>
+    <li>предметы могут не иметь цвета;</li>
+    <li>предметы могут быть не в ящике</li>
+</ul>
+<p>
+    Требуется написать приложение, которое:
+</p>
+<ol>
+    <li>
+        заполняет при старте SQL-БД приведённой ниже структуры в соответствии с переданным XML-файлом CREATE TABLE BOX
+        (ID INTEGER PRIMARY KEY, CONTAINED_IN INTEGER ); CREATE TABLE ITEM (ID INTEGER PRIMARY KEY, CONTAINED_IN INTEGER
+        REFERENCES BOX(ID), COLOR VARCHAR(100) );
+        Примечание: выбор СУБД на усмотрение кандидата (как варианты embedded DBMS можно, например, взять: H2, sqlite и
+        т.п.) В случае использования embedded/in-memory СУБД нужно залогировать в файл содержимое таблиц после загрузки.
+    </li>
+    <li>
+        После загрузки файла приложение должно работать, как REST-сервис, который возвращает id предметов заданного
+        цвета(color) содержащиеся в ящике c заданным идентификатором (box) с учётом того, что в ящике может быть ещё
+        ящик с предметами требуемого цвета. Например, на POST-запрос с телом запроса в JSON вида:
+        <ul>
+            <li>POST /test HTTP/1.1</li>
+            <li>Host: localhost</li>
+            <li>Accept: application/json</li>
+            <li>Content-Type:application/json</li>
+            <li>Content-Length: 25</li>
+            <li>{"box":"1","color":"red"}</li>
+        </ul>
+        для вышеприведённого XML должен быть ответ вида:
+        <ul>
+            <li>HTTP/1.1 200</li>
+            <li>Content-Type: application/json;</li>
+            <li>charset=UTF-8</li>
+            <li>Transfer-Encoding: chunked</li>
+            <li>Date: Mon, 01 Sep 2019 12:00:26 GMT [2,3]</li>
+        </ul>
+    </li>
+</ol>
+</body>
+</html>

@@ -26,6 +26,11 @@ public class TestController {
         this.boxService = boxService;
     }
 
+    @GetMapping("/")
+    public String getHello() {
+        return "hello";
+    }
+
     @GetMapping("/test")
     public String getInfo() {
         return "info";
