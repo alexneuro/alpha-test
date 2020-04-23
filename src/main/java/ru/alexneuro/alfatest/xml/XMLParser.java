@@ -1,7 +1,10 @@
 package ru.alexneuro.alfatest.xml;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,7 +20,12 @@ import java.util.Map;
 
 @Component
 public class XMLParser {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BoxXmlMapper.class);
+
     private Map<String, XmlMapper> xmlMappers = new HashMap<>();
+
+    @Value("${xmlparser.enable-log}")
+    private boolean enableLog;
 
     @Autowired
     public XMLParser(@Qualifier("boxXmlMapper") XmlMapper mapper1, @Qualifier("itemXmlMapper") XmlMapper mapper2) {
@@ -33,13 +41,13 @@ public class XMLParser {
 
             Element storage = document.getDocumentElement();
             if (storage.getChildNodes().getLength() > 0)
-                readNode(storage.getChildNodes(), null);
+                readNode(storage.getChildNodes(), null, "");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void readNode(NodeList childNodes, Box parentBox) {
+    private void readNode(NodeList childNodes, Box parentBox, String logTabSpace) {
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node node = childNodes.item(i);
             if (node.getNodeType() != Node.ELEMENT_NODE)
@@ -51,8 +59,11 @@ public class XMLParser {
 
             Object entity = mapper.create(element, parentBox);
 
+            if (enableLog && entity != null)
+                LOGGER.info(logTabSpace + entity);
+
             if (mapper.isBoxed() && element.getChildNodes().getLength() > 0)
-                readNode(element.getChildNodes(), (Box) entity);
+                readNode(element.getChildNodes(), (Box) entity, logTabSpace + "\t");
         }
     }
 
