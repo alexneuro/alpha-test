@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Storage>
+    <Box id="1">
+        <Box id="3">
+            <Box id="6">
+                <Item id="1" color="red"/>
+                <Item id="2" color="blue"/>
+                <Item id="3" color="red"/>
+            </Box>
+            <Item id="4" color="blue"/>
+        </Box>
+        <Item  color="red"/>
+        <Item id="12" color="red"/>
+
+        <Box id="4">
+            <Box id="6">
+                <Item id="5" color="blue"/>
+            </Box>
+            <Box id="8">
+                <Item id="6" color="red"/>
+            </Box>
+            <Item id="7" color="blue"/>
+            <Item id="14" color="red"/>
+            <Box id="9">
+                <Item id="13" color="red"/>
+
+            </Box>
+        </Box>
+        <Box id="5">
+            <Box id="7">
+                <Item id="8" color="blue"/>
+            </Box>
+            <Item id="15" color="red"/>
+        </Box>
+    </Box>
+    <Box id="2">
+        <Box id="10">
+            <Box id="11">
+                <Box id="12">
+                    <Item id="9" color="blue"/>
+                </Box>
+                <Box id="14">
+                    <Box id="13">
+                        <Item id="10" color="blue"/>
+                    </Box>
+                </Box>
+                <Item id="21" color="red"/>
+            </Box>
+        </Box>
+    </Box>
+    <Item id="6"/>
+</Storage>
